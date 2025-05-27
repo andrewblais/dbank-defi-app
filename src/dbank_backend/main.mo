@@ -10,7 +10,7 @@ actor DBank {
   //   return "Hello, " # name # "!";
   // };
 
-  var currentValue = 300;
+  var currentValue : Nat = 300;
 
   // replace the value of currentValue with what comes after ":=" (In this case, 100)
   currentValue := 100;
@@ -24,17 +24,29 @@ actor DBank {
 
   Debug.print(debug_show (currentValue));
 
-  // public keyword exposes topUp() so that it can be used outside of this DBank canister
-  // Otherwise, topUp() would be a private function (only accessible in this DBank canister)
+  // public keyword exposes deposit() so that it can be used outside of this DBank canister
+  // Otherwise, deposit() would be a private function (only accessible in this DBank canister)
   // increments the vaue of currentValue by 1
 
   // Parameter: name = amount, type = Nat (short for Natural number)
-  public func topUp(amount: Nat) {
+  public func deoposit(amount : Nat) {
     // adds the amount passed in to the currentValue
     currentValue += amount;
     // prints the currentValue to the console
     Debug.print(debug_show (currentValue));
   };
 
-  
+  // allows the user to withdraw from the currentValue
+  public func withdraw(amount : Nat) {
+
+    // never let the current value be less than 0
+    if (amount >= currentValue) {
+      currentValue := 0;
+    } else {
+      currentValue := currentValue - amount;
+    };
+    Debug.print(debug_show (currentValue));
+
+  };
+
 };
