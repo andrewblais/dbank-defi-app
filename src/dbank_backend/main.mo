@@ -1,30 +1,37 @@
 // module used for debugging
 import Debug "mo:base/Debug";
 
-// DBank is the class that holds the cannister (smart contract)
+// DBank is the class that holds the canister (smart contract)
 actor DBank {
 
-  public query func greet(name : Text) : async Text {
+  // frontend code (src/dbank_frontend/src/App.jsx) calls this function
+  // public query func greet(name : Text) : async Text {
+  //   Debug.print(name);
+  //   return "Hello, " # name # "!";
+  // };
 
-    var currentValue = 300;
+  var currentValue = 300;
 
-    // replace the value of currentValue with what comes after ":=" (In this case, 100)
-    currentValue := 100;
+  // replace the value of currentValue with what comes after ":=" (In this case, 100)
+  currentValue := 100;
 
+  // unlike in Javascript, let is used to define constant variables (where the data does not change)
+  let id = 3740597832408;
 
-    // unlike in Javascript, let is used to define constant variables (where the data does not change)
-    let id = 3740597832408;
+  Debug.print(debug_show (id));
 
-    Debug.print(debug_show(id));
+  Debug.print("Hello");
 
-    Debug.print("Hello");
+  Debug.print(debug_show (currentValue));
 
-    Debug.print(name);
-
+  // public keyword exposes topUp() so that it can be used outside of this DBank canister
+  // Otherwise, topUp() would be a private function (only accessible in this DBank canister)
+  // increments the vaue of currentValue by 1
+  public func topUp() {
+    currentValue += 1;
+    // prints the currentValue to the console
     Debug.print(debug_show (currentValue));
-
-    return "Hello, " # name # "!";
-
   };
 
+  
 };
