@@ -28,6 +28,9 @@ actor DBank {
   // Otherwise, deposit() would be a private function (only accessible in this DBank canister)
   // increments the vaue of currentValue by 1
 
+  // Update method: An update method makes changes to the canister’s (smart contract) persistent state 
+  // and/or performs operations that must be recorded on the blockchain.
+
   // Parameter: name = amount, type = Nat (short for Natural number)
   public func deoposit(amount : Nat) {
     // adds the amount passed in to the currentValue
@@ -47,6 +50,13 @@ actor DBank {
     };
     Debug.print(debug_show (currentValue));
 
+  };
+
+  // Query method: A query method is a read-only function. It can access state but cannot modify it.
+  // query methods are MUCH faster than update methods
+  // this query function retrieves and returns the currentValue
+  public query func checkBalance(): async Nat {
+    return currentValue;
   };
 
 };
