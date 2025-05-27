@@ -27,8 +27,11 @@ actor DBank {
   // public keyword exposes topUp() so that it can be used outside of this DBank canister
   // Otherwise, topUp() would be a private function (only accessible in this DBank canister)
   // increments the vaue of currentValue by 1
-  public func topUp() {
-    currentValue += 1;
+
+  // Parameter: name = amount, type = Nat (short for Natural number)
+  public func topUp(amount: Nat) {
+    // adds the amount passed in to the currentValue
+    currentValue += amount;
     // prints the currentValue to the console
     Debug.print(debug_show (currentValue));
   };
