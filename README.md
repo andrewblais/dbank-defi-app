@@ -1,10 +1,45 @@
-# `dbank`
+# 🧮 DBank – A Decentralized Compound Interest Banking App
 
-Welcome to your new `dbank` project and to the Internet Computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
+**DBank** is a DeFi (Decentralized Finance) application built on the [Internet Computer](https://internetcomputer.org) that calculates **compound interest** in real time. Users can deposit and withdraw amounts, and the smart contract automatically applies compounding logic to update balances accurately.
 
-To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
+> 📚 This project follows the [Dr. Angela Yu](https://www.appbrewery.co/) Internet Computer Bootcamp course, but has been **updated and modernized** to use the latest versions of Motoko, React 18, and Vite.
 
-To learn more before you start working with `dbank`, see the following documentation available online:
+---
+
+## ✨ Features
+
+- ✅ Deposit and withdraw ICP token amounts
+- ✅ Automatically compound interest over time
+- ✅ Real-time balance updates from a Motoko smart contract
+- ✅ Refactored with modern frontend tooling and code architecture
+
+---
+
+## 🧱 Tech Stack
+
+| Layer         | Technology                      |
+|--------------|----------------------------------|
+| Smart Contract | Motoko (IC SDK)                |
+| Frontend     | React 18, Vite                   |
+| Styles       | SCSS                             |
+| Canister Mgmt| DFX (`dfx.json`)                 |
+
+---
+
+## 📁 Project Structure
+
+src/
+├── dbank_backend/ # Motoko smart contract logic
+├── dbank_frontend/
+│ ├── src/
+│ │ ├── App.jsx
+│ │ ├── main.jsx
+│ │ ├── index.scss
+│ │ └── components/
+│ │ ├── Balance.jsx
+│ │ └── TransactionForm.jsx
+├── declarations/ # Auto-generated from dfx build
+
 
 - [Quick Start](https://internetcomputer.org/docs/current/developer-docs/setup/deploy-locally)
 - [SDK Developer Tools](https://internetcomputer.org/docs/current/developer-docs/setup/install)
