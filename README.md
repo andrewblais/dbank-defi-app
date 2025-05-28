@@ -2,7 +2,7 @@
 
 **DBank** is a DeFi (Decentralized Finance) application built on the [Internet Computer](https://internetcomputer.org) that calculates **compound interest** in real time. Users can deposit and withdraw amounts, and the smart contract automatically applies compounding logic to update balances accurately.
 
-> 📚 This project follows the [Dr. Angela Yu](https://www.appbrewery.co/) Internet Computer Bootcamp course, but has been **updated and modernized** to use the latest versions of Motoko, React 18, and Vite.
+> 📚 This project follows [Dr. Angela Yu's](https://www.appbrewery.co/) DBank application from her ["The Complete Full-Stack Web Development Bootcamp"](https://www.udemy.com/course/the-complete-web-development-bootcamp/?couponCode=ST19MT280525G3) course on Udemy, but has been **updated and modernized** to use the latest versions of Motoko, React 18, and Vite.
 
 ---
 
