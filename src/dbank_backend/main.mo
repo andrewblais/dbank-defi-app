@@ -28,7 +28,7 @@ actor DBank {
   // stable keyword makes the variable become orthogonally persisted 
   stable var currentValue : Float = 300;
 
-  currentValue := 100;
+  // currentValue := 100;
 
   // replace the value of currentValue with what comes after ":=" (In this case, 100)
   // currentValue := 100;
@@ -89,7 +89,7 @@ actor DBank {
     // formula for compound interest is below: 
     // Amount = Principal * (1 + (interest rate/number of times interest is compounded))^Time
     // In motoko, "**" means raise to the exponent
-    currentValue := currentValue * (1.000000001 ** Float.fromInt(timeElapsedS));
+    currentValue := currentValue * (1.00001 ** Float.fromInt(timeElapsedS));
 
     // reset the startTime to the time when the compound interest was last calculated
     startTime := currentTime;

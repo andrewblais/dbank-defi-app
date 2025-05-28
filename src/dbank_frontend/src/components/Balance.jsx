@@ -5,7 +5,7 @@ export default function Balance({ amount }) {
   return (
     <div className="balance-display">
       <h1>
-        Current Balance: <span>${amount}</span>{" "}
+        Current Balance: <span>{new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(amount)}</span>
       </h1>
     </div>
   );
