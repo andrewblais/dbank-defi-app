@@ -5,7 +5,7 @@ export default function TransactionForm({ onSubmit }) {
   // State for deposit input
   const [input, setInput] = useState("");
   // State for withdrawal input
-  const [withdrawal, setWithdrawal] = useState(""); 
+  const [withdrawal, setWithdrawal] = useState("");
 
   // Submit handler that triggers the onSubmit callback with parsed amounts
   const handleSubmit = async (e) => {
@@ -15,31 +15,35 @@ export default function TransactionForm({ onSubmit }) {
 
     // Call the parent component's onSubmit function and pass in the user-entered values.
     // If the user leaves one of the fields empty, `parseFloat` will return NaN.
-    // Using `depositAmount || 0` ensures that if `depositAmount` is NaN or 0, 
+    // Using `depositAmount || 0` ensures that if `depositAmount` is NaN or 0,
     // we still pass 0 to avoid breaking the logic.
     // This line allows both fields to be optional—users can deposit, withdraw, or do both in one submission.
-    await onSubmit(depositAmount || 0, withdrawAmount || 0); 
+    await onSubmit(depositAmount || 0, withdrawAmount || 0);
     // Reset deposit field
-    setInput(""); 
+    setInput("");
     // Reset withdrawal field
-    setWithdrawal(""); 
+    setWithdrawal("");
   };
 
   return (
     <form onSubmit={handleSubmit} className="transaction-form">
+      <h2>Amount to Deposit</h2>
       <input
         type="number"
         placeholder="Deposit amount"
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
+      <h2>Amount to Withdraw</h2>
       <input
         type="number"
         placeholder="Withdrawal amount"
         value={withdrawal}
         onChange={(e) => setWithdrawal(e.target.value)}
       />
-      <button type="submit" id="submit-btn">Finalize Transaction</button>
+      <button type="submit" id="submit-btn">
+        Finalize Transaction
+      </button>
     </form>
   );
 }
