@@ -1,0 +1,69 @@
+﻿Section 38: Build Your First Defi (Decentralized Finance Application)
+What You’ll Build:
+* What is Motoko?
+   * a programming language specifically designed for building decentralized applications (dApps) on the Internet Computer blockchain, developed by the DFINITY Foundation.
+   * a statically-typed, actor-based language created to work seamlessly with the Internet Computer Protocol (ICP); It enables developers to write smart contracts (called "canisters") that run on the Internet Computer.
+   * Key Features:
+      * Actor Model: Every smart contract is an actor (canister) that encapsulates state and behavior.
+      * Async/await syntax: Handles asynchronous calls (especially inter-canister communication) clearly.
+      * Memory safety: Prevents memory-related bugs and exploits (like buffer overflows).
+      * Garbage Collection: Automatically manages memory for developers.
+      * WebAssembly backend: Compiles to WebAssembly for execution on the Internet Computer.
+      * Type inference: Makes code cleaner while remaining statically typed.
+   * Why Use Motoko?
+      * Optimized for Internet Computer: Tailored to ICP’s architecture and features.
+      * Security: Built with blockchain-specific security considerations.
+      * Developer tools: Comes with an official compiler, REPL, and documentation.
+Query vs. Update Methods:
+* Update Methods:
+   * An update method makes changes to the canister’s (smart contract) persistent state and/or performs operations that must be recorded on the blockchain.
+   * Characteristics:
+      * Changes state (e.g., modifies variables)
+      * Slower: goes through consensus
+      * Takes 1–2 seconds
+      * Can be called by other canisters
+      * Return results asynchronously
+   * Example (motoko):
+      * // This variable holds the user's account balance.
+      *  // It is declared outside the function, so it is persistent across canister calls.
+      *  var balance : Nat = 0;
+      *       *  // This is an 'update' method, meaning it can modify the canister's state.
+      *  // It takes an input amount and adds it to the balance.
+      *  public func deposit(amount : Nat) : async () {
+      *    // Increase the persistent balance by the given amount.
+      *    balance += amount;
+      *       *    // This function returns nothing (i.e., `()`), but changes the canister's state.
+      *  };
+
+
+* Query Methods:
+   * A query method is a read-only function. It can access state but cannot modify it.
+   * Characteristics:
+      * Does NOT change state
+      * Very fast: does not go through consensus
+      * Takes milliseconds
+      * Cannot call other canisters
+      * Return results synchronously
+   * Example (motoko):
+      * // Declare a persistent variable to track the account balance.
+      *  // This variable is stored in canister memory and survives across calls.
+      *  var balance : Nat = 100; // Starting value for demonstration
+      *       *  // This is a 'query' method, meaning it is read-only.
+      *  // It retrieves the current value of the balance but does NOT modify it.
+      *  public query func getBalance() : async Nat {
+      *    // Return the value of 'balance'.
+      *    // Since this is a query method, it's fast and doesn't go through consensus.
+      *    return balance;
+      *  };
+
+
+Orthogonal Persistence:
+* What is Orthogonal Persistence?
+   * a data management concept where data remains available across program executions without requiring special actions to store or retrieve it.
+   * It means that data can survive beyond the life of a program, and the way data is created, used, or stored does not affect its persistence. The persistence of data is independent of how long the program runs or what kind of data it is.
+   * Key Principles:
+      * Persistence Independence: You don’t need special save/load code — persistent and transient data are treated the same.
+      * Data Type Orthogonality: All types of data (e.g., integers, objects, functions) can be made persistent.
+      * Persistence Identification: The system determines which objects should be persistent, often by "reachability" (e.g., objects referenced from persistent roots).
+* In the Internet Computer (ICP) using Motoko, variables declared outside functions in actors are persisted automatically — no manual storage needed.
+* Orthogonal persistence simplifies development by removing the need to write custom code to store and retrieve persistent data, and allows all data types to be persisted uniformly and transparently.

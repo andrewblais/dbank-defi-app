@@ -1,5 +1,4 @@
 // canister/smart contract interface
-
 import { dbank_backend as dbank } from "../../declarations/dbank_backend/index.js";
 
 // Calls the canister method to retrieve the current balance
