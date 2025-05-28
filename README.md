@@ -8,7 +8,7 @@
 
 ## ✨ Features
 
-- ✅ Deposit and withdraw ICP token amounts
+- ✅ Deposit and withdraw $ amounts
 - ✅ Automatically compound interest over time
 - ✅ Real-time balance updates from a Motoko smart contract
 - ✅ Refactored with modern frontend tooling and code architecture
