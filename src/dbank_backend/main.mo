@@ -28,6 +28,8 @@ actor DBank {
   // stable keyword makes the variable become orthogonally persisted 
   stable var currentValue : Float = 300;
 
+  currentValue := 100;
+
   // replace the value of currentValue with what comes after ":=" (In this case, 100)
   // currentValue := 100;
 
@@ -48,7 +50,7 @@ actor DBank {
   // and/or performs operations that must be recorded on the blockchain.
 
   // Parameter: name = amount, type = the type of the variable
-  public func deoposit(amount : Float) {
+  public func deposit(amount : Float) {
     // adds the amount passed in to the currentValue
     currentValue += amount;
     // prints the currentValue to the console
@@ -87,7 +89,7 @@ actor DBank {
     // formula for compound interest is below: 
     // Amount = Principal * (1 + (interest rate/number of times interest is compounded))^Time
     // In motoko, "**" means raise to the exponent
-    currentValue := currentValue * (1.01 ** Float.fromInt(timeElapsedS));
+    currentValue := currentValue * (1.000000001 ** Float.fromInt(timeElapsedS));
 
     // reset the startTime to the time when the compound interest was last calculated
     startTime := currentTime;

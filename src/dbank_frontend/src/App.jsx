@@ -1,34 +1,45 @@
-import { useState } from 'react';
-import { dbank_backend } from 'declarations/dbank_backend';
+import React, { useEffect, useState } from "react";
+import { checkBalance, deposit, withdraw, compound } from "./dbank.js";
+import TransactionForm from "./components/TransactionForm";
+import Balance from "./components/Balance";
+import "./index.scss";
 
 function App() {
-  const [greeting, setGreeting] = useState('');
+  // Local state to hold the user's current account balance
+  const [balance, setBalance] = useState(0);
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const name = event.target.elements.name.value;
-    dbank_backend.greet(name).then((greeting) => {
-      setGreeting(greeting);
-    });
-    return false;
-  }
+  // Fetch the current balance from the backend canister
+  const updateBalance = async () => {
+    const newBalance = await checkBalance();
+    // Round to two decimal places before setting state
+    setBalance(parseFloat(newBalance.toFixed(2)));
+  };
+
+  // Run updateBalance once when the component mounts
+  useEffect(() => {
+    updateBalance();
+  }, []);
+
+  // Handle both deposit and withdrawal operations, then update balance
+  const handleTransaction = async (depositAmount, withdrawAmount) => {
+    // Deposit funds if input is provided
+    if (depositAmount) await deposit(depositAmount); 
+    // Withdraw funds if input is provided
+    if (withdrawAmount) await withdraw(withdrawAmount); 
+    // Apply interest compound
+    await compound(); 
+    // Refresh the balance displayed
+    await updateBalance(); 
+  };
 
   return (
-
-    <main>
-      
+    <main className="container">
+      <img src="dbank_logo.png" alt="DBank logo" width="100"/>
+      {/* Display current balance */}
+      <Balance amount={balance}/>
+      {/* Form for submitting deposit/withdraw actions */}
+      <TransactionForm onSubmit={handleTransaction}/>
     </main>
-    // <main>
-    //   <img src="/logo2.svg" alt="DFINITY logo" />
-    //   <br />
-    //   <br />
-    //   <form action="#" onSubmit={handleSubmit}>
-    //     <label htmlFor="name">Enter your name: &nbsp;</label>
-    //     <input id="name" alt="Name" type="text" />
-    //     <button type="submit">Click Me!</button>
-    //   </form>
-    //   <section id="greeting">{greeting}</section>
-    // </main>
   );
 }
 
