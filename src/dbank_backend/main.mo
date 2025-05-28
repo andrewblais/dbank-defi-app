@@ -1,17 +1,14 @@
 // module used for debugging
 import Debug "mo:base/Debug";
 
+// module used for getting time
+import Time "mo:base/Time";
+
+// module used to convert numbers to type Float
+import Float "mo:base/Float";
+
 // DBank is the class that holds the canister (smart contract)
 actor DBank {
-
-  // frontend code (src/dbank_frontend/src/App.jsx) calls this function
-  // public query func greet(name : Text) : async Text {
-  //   Debug.print(name);
-  //   return "Hello, " # name # "!";
-  // };
-
-  // flexible variable
-  // var currentValue : Nat = 300;
 
   // Orthogonal Persistance: Allows data to survive beyond the life
   // of a program, and the way data is created, used, or stored does 
@@ -19,7 +16,17 @@ actor DBank {
   // of how long the program runs or what kind of data it is.
 
   // stable keyword makes the variable become orthogonally persisted 
-  stable var currentValue : Nat = 300;
+  // variable that stores the current time (in nanoseconds since January 1, 1970)
+  stable var startTime = Time.now();
+
+  Debug.print(debug_show(startTime));
+
+  // flexible variable
+  // Nat (short for Natural number)
+  // var currentValue : Nat = 300;
+
+  // stable keyword makes the variable become orthogonally persisted 
+  stable var currentValue : Float = 300;
 
   // replace the value of currentValue with what comes after ":=" (In this case, 100)
   // currentValue := 100;
@@ -40,8 +47,8 @@ actor DBank {
   // Update method: An update method makes changes to the canister’s (smart contract) persistent state
   // and/or performs operations that must be recorded on the blockchain.
 
-  // Parameter: name = amount, type = Nat (short for Natural number)
-  public func deoposit(amount : Nat) {
+  // Parameter: name = amount, type = the type of the variable
+  public func deoposit(amount : Float) {
     // adds the amount passed in to the currentValue
     currentValue += amount;
     // prints the currentValue to the console
@@ -49,7 +56,7 @@ actor DBank {
   };
 
   // allows the user to withdraw from the currentValue
-  public func withdraw(amount : Nat) {
+  public func withdraw(amount : Float) {
 
     // never let the current value be less than 0
     if (amount >= currentValue) {
@@ -64,8 +71,27 @@ actor DBank {
   // Query method: A query method is a read-only function. It can access state but cannot modify it.
   // query methods are MUCH faster than update methods
   // this query function retrieves and returns the currentValue
-  public query func checkBalance() : async Nat {
+  public query func checkBalance() : async Float {
     return currentValue;
+  };
+
+  // function that calculates compound interest
+  public func compound(){
+    // gets the current time for when this function has been called 
+    let currentTime = Time.now();
+    // Calculates the difference in time from when this function was 
+    // called and the start time of this program.
+    let timeElapsedNS = currentTime - startTime;
+    // converts the time from nanoseconds to seconds
+    let timeElapsedS = timeElapsedNS / 1000000000;
+    // formula for compound interest is below: 
+    // Amount = Principal * (1 + (interest rate/number of times interest is compounded))^Time
+    // In motoko, "**" means raise to the exponent
+    currentValue := currentValue * (1.01 ** Float.fromInt(timeElapsedS));
+
+    // reset the startTime to the time when the compound interest was last calculated
+    startTime := currentTime;
+
   };
 
 };
