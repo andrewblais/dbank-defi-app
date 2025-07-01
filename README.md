@@ -28,6 +28,7 @@
 
 ## 📁 Project Structure
 
+```
 src/
 ├── dbank_backend/ # Motoko smart contract logic
 ├── dbank_frontend/
@@ -39,7 +40,7 @@ src/
 │ │ ├── Balance.jsx
 │ │ └── TransactionForm.jsx
 ├── declarations/ # Auto-generated from dfx build
-
+```
 
 - [Quick Start](https://internetcomputer.org/docs/current/developer-docs/setup/deploy-locally)
 - [SDK Developer Tools](https://internetcomputer.org/docs/current/developer-docs/setup/install)
